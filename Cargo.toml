@@ -1,5 +1,5 @@
 [package]
-name = "csv-to-json"
+name = "csv-json"
 version = "0.1.0"
 authors = ["Alexander Mikhalev <alex@metacortex.engineer>"]
 edition = "2021"

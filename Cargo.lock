@@ -54,7 +54,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "csv-to-json"
+name = "csv-json"
 version = "0.1.0"
 dependencies = [
  "csv",

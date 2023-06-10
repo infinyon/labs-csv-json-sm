@@ -1,9 +1,9 @@
 [package]
-name = "csv-to-json"
-group = "infinyon"
+name = "csv-json"
+group = "infinyon-labs"
 version = "0.1.0"
 apiVersion = "0.1.0"
-description = ""
+description = "Converts CSV into JSON"
 license = "Apache-2.0"
 visibility = "public"
 
