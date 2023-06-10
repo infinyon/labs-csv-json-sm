@@ -1,25 +1,17 @@
 use csv::ReaderBuilder;
 
-use fluvio_smartmodule::{smartmodule, Result, Record, RecordData};
+use fluvio_smartmodule::{smartmodule, Result as FluvioResult, Record, RecordData};
 use std::collections::HashMap;
 use serde_json::json;
 
 #[smartmodule(map)]
-pub fn map(record: &Record) -> Result<(Option<RecordData>, RecordData)> {
+pub fn map(record: &Record) -> FluvioResult<(Option<RecordData>, RecordData)> {
     let key = record.key.clone();
 
     let mut reader = ReaderBuilder::new().has_headers(true).from_reader(record.value.as_ref());
     type CSVRecord = HashMap<String, String>;
-    let mut rows = Vec::new();
-    for result in reader.deserialize() {
-        // We must tell Serde what type we want to deserialize into.
-        let mut row = HashMap::new();
-        let record: CSVRecord = result?;
-        for (key, value) in record {
-            row.insert(key,value);
-        }
-        rows.push(row);
-    }
+
+    let rows: Vec<CSVRecord> = reader.deserialize().collect::<Result<_, _>>()?;
     let json = json!(rows);
     let serialized_output = serde_json::to_vec(&json)?;
     Ok((key, RecordData::from(serialized_output)))
