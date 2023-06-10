@@ -33,10 +33,10 @@ mod tests {
 
     #[test]
     fn test_map() {
-        let input = include_str!("../test-data/test.csv");
-        let expected = include_str!("../test-data/test.json");
+        let input = include_str!("../test-data/input.csv");
         let result = map(&Record::new(input)).unwrap();
 
+        let expected = include_str!("../test-data/output.json");
         let expected_value:Value = serde_json::from_str(expected).unwrap();
         let expected_str=(None, RecordData::from(expected_value.to_string()));
         assert_eq!(expected_str, result);
