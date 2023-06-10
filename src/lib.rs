@@ -33,8 +33,8 @@ mod tests {
 
     #[test]
     fn test_map() {
-        let input = include_str!("../test-data/small.csv");
-        let expected = include_str!("../test-data/small.json");
+        let input = include_str!("../test-data/test.csv");
+        let expected = include_str!("../test-data/test.json");
         let result = map(&Record::new(input)).unwrap();
 
         let expected_value:Value = serde_json::from_str(expected).unwrap();
