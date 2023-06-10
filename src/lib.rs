@@ -13,12 +13,12 @@ pub fn map(record: &Record) -> Result<(Option<RecordData>, RecordData)> {
     let mut rows = Vec::new();
     for result in reader.deserialize() {
         // We must tell Serde what type we want to deserialize into.
+        let mut row = HashMap::new();
         let record: CSVRecord = result?;
         for (key, value) in record {
-            let mut row = HashMap::new();
             row.insert(key,value);
-            rows.push(row);
         }
+        rows.push(row);
     }
     let json = json!(rows);
     let serialized_output = serde_json::to_vec(&json)?;
@@ -29,13 +29,16 @@ pub fn map(record: &Record) -> Result<(Option<RecordData>, RecordData)> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use serde_json::Value;
 
     #[test]
     fn test_map() {
-    let input = include_str!("../test-data/test.csv");
-    let expected = include_str!("../test-data/test.json");
-    let result = map(&Record::new(input)).unwrap();
-    let expected_str=(None, RecordData::from(expected));
-    assert_eq!(expected_str, result);
+        let input = include_str!("../test-data/small.csv");
+        let expected = include_str!("../test-data/small.json");
+        let result = map(&Record::new(input)).unwrap();
+
+        let expected_value:Value = serde_json::from_str(expected).unwrap();
+        let expected_str=(None, RecordData::from(expected_value.to_string()));
+        assert_eq!(expected_str, result);
     }
 }
