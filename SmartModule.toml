@@ -7,6 +7,13 @@ description = "Converts CSV into JSON"
 license = "Apache-2.0"
 visibility = "public"
 
+
 [[params]]
-name = "input"
-description = "input description"
+name = "delimiter"
+description = "the field delimiter to use when parsing csv"
+optional = true
+
+[[params]]
+name = "header_case"
+description = "the case to use for the header fields"
+optional = true
