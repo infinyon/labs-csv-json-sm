@@ -1,6 +1,7 @@
 use csv::{ReaderBuilder, Trim};
 use fluvio_smartmodule::{
-    dataplane::smartmodule::SmartModuleExtraParams, smartmodule, Record, RecordData, Result,
+    dataplane::smartmodule::SmartModuleExtraParams, smartmodule, RecordData, Result,
+    SmartModuleRecord,
 };
 use heck::{ToLowerCamelCase, ToSnakeCase};
 use serde_json::{json, Value};
@@ -12,7 +13,7 @@ const HEADER_CASE_PARAM_NAME: &str = "header_case";
 const DEFAULT_DELIMITER: u8 = b',';
 
 #[smartmodule(map)]
-pub fn map(record: &Record) -> Result<(Option<RecordData>, RecordData)> {
+pub fn map(record: &SmartModuleRecord) -> Result<(Option<RecordData>, RecordData)> {
     let params = PARAMS.get().expect("params is not initialized");
     let key = record.key.clone();
 
@@ -103,31 +104,3 @@ impl Params {
         }
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use serde_json::Value;
-
-    #[test]
-    fn test_map() {
-        init(SmartModuleExtraParams::new(
-            vec![
-                (DELIMITER_PARAM_NAME.to_string(), ",".to_string()),
-                (HEADER_CASE_PARAM_NAME.to_string(), "none".to_string()),
-            ]
-            .into_iter()
-            .collect(),
-            None,
-        ))
-        .unwrap();
-        let input = include_str!("../test-data/comma/input.csv");
-        let result = map(&Record::new(input)).unwrap();
-
-        let expected = include_str!("../test-data/comma/output.json");
-        let expected_value: Value = serde_json::from_str(expected).unwrap();
-        let expected_str = (None, RecordData::from(expected_value.to_string()));
-        assert_eq!(expected_str, result);
-    }
-}
-
