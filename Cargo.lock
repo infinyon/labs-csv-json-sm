@@ -34,9 +34,9 @@ dependencies = [
 
 [[package]]
 name = "csv"
-version = "1.2.2"
+version = "1.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "626ae34994d3d8d668f4269922248239db4ae42d538b14c398b74a52208e8086"
+checksum = "ac574ff4d437a7b5ad237ef331c17ccca63c46479e5b5453eb8e10bb99a759fe"
 dependencies = [
  "csv-core",
  "itoa",
@@ -46,19 +46,20 @@ dependencies = [
 
 [[package]]
 name = "csv-core"
-version = "0.1.10"
+version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2b2466559f260f48ad25fe6317b3c8dac77b5bdb5763ac7d9d6103530663bc90"
+checksum = "5efa2b3d7902f4b634a20cae3c9c4e6209dc4779feb6863329607560143efa70"
 dependencies = [
  "memchr",
 ]
 
 [[package]]
 name = "csv-json"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "csv",
  "fluvio-smartmodule",
+ "heck",
  "serde",
  "serde_json",
 ]
@@ -85,9 +86,9 @@ dependencies = [
 
 [[package]]
 name = "fluvio-protocol"
-version = "0.10.0"
+version = "0.10.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "76e9b5d74fd001ca50949834f6b08e8a1c47f29569fa4cb44a454f8acb085b2a"
+checksum = "276b585590ee8a237aa5247c02e1c10e09b10f2e02797f7e43e1fbdcb9a97962"
 dependencies = [
  "bytes",
  "content_inspector",
@@ -117,9 +118,9 @@ dependencies = [
 
 [[package]]
 name = "fluvio-smartmodule"
-version = "0.6.0"
+version = "0.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2ec261f4975797504e73253bdfd566737a6f2a2e9d44e07f10868cbda53ebd07"
+checksum = "672cb73a24db6ed149a6d0e27e5d0f19ac1e430bd3770cc83c7764029a09105e"
 dependencies = [
  "eyre",
  "fluvio-protocol",
@@ -130,20 +131,20 @@ dependencies = [
 
 [[package]]
 name = "fluvio-smartmodule-derive"
-version = "0.4.0"
+version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "00adc30d860f881c2f3b4f8a50fa4701df6a4928014c731f51884cb9c5bae102"
+checksum = "71466f33efdca5973620ca6de3ad69c17e98b6fdf2c40cf52bb0fae6fd3e21ba"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 1.0.109",
+ "syn 2.0.18",
 ]
 
 [[package]]
 name = "fluvio-types"
-version = "0.4.2"
+version = "0.4.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6f4db4abc2f35dd787943916391113ed91483e240c0de18da87eceac96fbd85b"
+checksum = "1765d5df0c44810c67a6fabc9fcd1a8a7134ea7a7744a5b88d2b21034b6d3670"
 dependencies = [
  "thiserror",
  "tracing",
@@ -158,6 +159,12 @@ dependencies = [
  "log",
  "tracing",
 ]
+
+[[package]]
+name = "heck"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "95505c38b4572b2d910cecb0281560f54b440a19336cbbcb27bf6ce6adc6f5a8"
 
 [[package]]
 name = "indenter"
